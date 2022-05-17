@@ -1,12 +1,12 @@
 import socket
-import json
 import nacl.utils
-from Crypto.Cipher import ChaCha20
 import nacl.secret
-import datetime
-from tkinter import SEPARATOR
 from nacl.signing import SigningKey
 from nacl.signing import VerifyKey
+from Crypto.Cipher import ChaCha20
+import json
+import datetime
+from tkinter import SEPARATOR
 from base64 import b64decode, b64encode
 
 
@@ -14,6 +14,7 @@ suckit = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 host = socket.gethostname()
 port = 12345
 suckit.bind((host, port))
+
 SEPARATOR = "<SEPARATOR>"
 
 def Cipher(data):
@@ -62,7 +63,6 @@ def VerifySign(data, key):
     f = open("archivo_descifrado.txt", "a")
     f.write(f'\n{vfirma}')
     f.close()
-    return vfirma 
 
 def Login(user, password):
     time = datetime.datetime.now()
@@ -91,7 +91,7 @@ if __name__ == "__main__":
         results_Cipher=Cipher(file)
         desciphered=Decipher(results_Cipher[1], results_Cipher[2])
         results_Sign = Sign(results_Cipher[0])
-        verified = VerifySign(results_Sign[0], results_Sign[1])
+        VerifySign(results_Sign[0], results_Sign[1])
         conn.sendall('El archivo a sido, cifrado, descifrado, firmado y verificado\n'.encode())
     suckit.close()      
 
